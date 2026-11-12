@@ -72,3 +72,53 @@ document.getElementById('contactForm')
       'noopener,noreferrer'
     );
   });
+
+
+// SECRET EASTER EGG
+
+const logo = document.querySelector('.brand img');
+const secretOverlay = document.getElementById('secretOverlay');
+const secretClose = document.getElementById('secretClose');
+
+let logoClicks = 0;
+let clickTimer;
+
+logo.addEventListener('click', (event) => {
+  event.preventDefault();
+
+  logoClicks++;
+
+  clearTimeout(clickTimer);
+
+  clickTimer = setTimeout(() => {
+    logoClicks = 0;
+  }, 1500);
+
+  if (logoClicks >= 3) {
+    secretOverlay.classList.add('active');
+    logoClicks = 0;
+    clearTimeout(clickTimer);
+  }
+});
+
+// TUTUP EASTER EGG
+
+secretClose.addEventListener('click', () => {
+  secretOverlay.classList.remove('active');
+});
+
+// TUTUP KETIKA AREA LUAR DIKLIK
+
+secretOverlay.addEventListener('click', (event) => {
+  if (event.target === secretOverlay) {
+    secretOverlay.classList.remove('active');
+  }
+});
+
+// TUTUP DENGAN TOMBOL ESCAPE
+
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape') {
+    secretOverlay.classList.remove('active');
+  }
+});
